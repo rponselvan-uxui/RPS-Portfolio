@@ -1356,7 +1356,7 @@
            const projectId = '5knm77sp'; // Your Project ID
            const dataset = 'production'; // Your Dataset
            const query = encodeURIComponent('*[_type == "project"]'); // Encoded query
-           const cmsApiUrl = `https://${projectId}.api.sanity.io/v1/data/query/${dataset}?query=${query}`; // Construct the URL
+           const cmsApiUrl = `https://${projectId}.api.sanity.io/v2023-08-01/data/query/${dataset}?query=${query}`; // Construct the URL with specific API version
 
            const headers = {
                 'Content-Type': 'application/json'
