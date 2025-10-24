@@ -121,13 +121,15 @@
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+             min-height: 100vh; /* Use min-height instead of height */
             display: flex;
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, #121212 0%, #1B1B1B 100%);
             position: relative;
             overflow: hidden;
+            padding-top: 70px; /* Add padding to account for fixed navbar */
+            box-sizing: border-box; /* Include padding in height calculation */
         }
 
         .hero::before {
@@ -144,7 +146,7 @@
             text-align: center;
             z-index: 2;
             max-width: 800px;
-            padding: 0 2rem;
+            padding: 2rem; /* Adjusted padding */
         }
 
         .hero .greeting {
@@ -340,6 +342,14 @@
             padding-left: 2rem;
             padding-right: 2rem;
         }
+
+         /* Ensure hero padding doesn't affect other sections */
+        .section#home {
+             padding-top: 0;
+             padding-bottom: 0;
+             max-width: none; /* Allow hero to be full width */
+        }
+
 
         .section-title {
             font-size: 2.5rem;
@@ -559,7 +569,9 @@
             display: flex;
             gap: 2rem;
             padding: 0 1rem;
-            min-width: max-content;
+            min-width: max-content; /* Ensure container expands */
+             min-height: 350px; /* Give it some minimum height while loading */
+             align-items: flex-start; /* Align cards to top */
         }
 
         .projects-container::-webkit-scrollbar {
@@ -588,6 +600,8 @@
             border: 2px solid transparent;
             min-width: 300px;
             flex-shrink: 0;
+             display: flex; /* Use flexbox for layout */
+             flex-direction: column; /* Stack image and content vertically */
         }
 
         .project-card:hover {
@@ -605,10 +619,20 @@
             justify-content: center;
             font-size: 3rem;
             color: #F96802;
+            overflow: hidden; /* Added to contain image */
         }
+        .project-image img { /* Added style for images */
+             width: 100%;
+             height: 100%;
+             object-fit: cover; /* Cover the area, potentially cropping */
+        }
+
 
         .project-content {
             padding: 1.5rem;
+             flex-grow: 1; /* Allow content to fill remaining space */
+             display: flex; /* Use flexbox */
+             flex-direction: column; /* Stack vertically */
         }
 
         .project-content h3 {
@@ -620,12 +644,21 @@
         .project-content p {
             color: #D9D9D9;
             margin-bottom: 1rem;
+             /* Optional: Limit lines shown for description */
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Show max 3 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: calc(1.6em * 1); /* Ensure space even if short */
+             flex-grow: 1; /* Allow description to push tags down */
         }
 
         .project-tags {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
+            margin-top: auto; /* Push tags to the bottom */
         }
 
         .tag {
@@ -815,11 +848,13 @@
             .mobile-menu {
                 display: flex;
             }
-            
+
+            /* --- Added padding fix --- */
             .hero-content {
                 padding-top: 80px; /* Adjust this value if needed */
                 padding-bottom: 40px;
             }
+            /* --- End padding fix --- */
 
             .hire-btn {
                 display: none;
@@ -920,6 +955,13 @@
                 padding-right: 1rem;
             }
 
+             /* Ensure hero padding doesn't affect other sections */
+            .section#home {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+
             .footer-container {
                 padding: 30px 15px 15px 15px;
             }
@@ -987,7 +1029,7 @@
         </div>
     </nav>
 
-    <section class="hero" id="home">
+    <section class="section hero" id="home">
         <div class="hero-content">
             <p class="greeting">Hi I am</p>
             <h1>Ponselvan Ramanadhan</h1>
@@ -1142,59 +1184,9 @@
 
     <section class="section" id="projects">
         <h2 class="section-title">Featured Projects</h2>
-        <div class="projects-container">
+         <div class="projects-container">
             <div class="projects-scroll">
-                <div class="project-card">
-                    <div class="project-image">📁</div>
-                    <div class="project-content">
-                        <h3>Project 1</h3>
-                        <div class="project-tags">
-                            <span class="tag">UI Design</span>
-                            <span class="tag">Figma</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">📁</div>
-                    <div class="project-content">
-                        <h3>Project 2</h3>
-                        <div class="project-tags">
-                            <span class="tag">Web Design</span>
-                            <span class="tag">HTML/CSS</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">📁</div>
-                    <div class="project-content">
-                        <h3>Project 3</h3>
-                        <div class="project-tags">
-                            <span class="tag">Mobile App</span>
-                            <span class="tag">Prototype</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">📁</div>
-                    <div class="project-content">
-                        <h3>Project 4</h3>
-                        <div class="project-tags">
-                            <span class="tag">Landing Page</span>
-                            <span class="tag">Responsive</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">📁</div>
-                    <div class="project-content">
-                        <h3>Project 5</h3>
-                        <div class="project-tags">
-                            <span class="tag">Redesign</span>
-                            <span class="tag">UX</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <p style="text-align: center; width: 100%;">Loading projects...</p> </div>
         </div>
     </section>
 
@@ -1287,27 +1279,36 @@
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                 e.preventDefault();
+                 const href = this.getAttribute('href'); // Get the href value
+                 // Only try to select and scroll if href is not null and not just "#"
+                 if (href && href !== '#') {
+                     const target = document.querySelector(href);
+                     if (target) {
+                         target.scrollIntoView({
+                             behavior: 'smooth',
+                             block: 'start'
+                         });
+                     }
+                 } else if (href === '#') {
+                     // Optional: Smooth scroll to top if href is just "#"
+                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                 }
             });
         });
 
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(18, 18, 18, 0.98)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
-            } else {
-                navbar.style.background = 'rgba(18, 18, 18, 0.95)';
-                navbar.style.boxShadow = 'none';
-            }
+             if (navbar) { // Check if navbar exists
+                 if (window.scrollY > 100) {
+                     navbar.style.background = 'rgba(18, 18, 18, 0.98)';
+                     navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+                 } else {
+                     navbar.style.background = 'rgba(18, 18, 18, 0.95)';
+                     navbar.style.boxShadow = 'none';
+                 }
+             }
         });
 
         // Animate skill circles on scroll
@@ -1317,14 +1318,8 @@
             skillCircles.forEach(circle => {
                 const percentage = parseInt(circle.getAttribute('data-percentage'));
                 // Calculate stroke-dashoffset based on percentage
-                // Circumference = 2 * PI * Radius = 2 * 3.14159 * 52 = 326.725
                 const circumference = 326.72;
                 const offset = circumference - (percentage / 100) * circumference;
-
-                // Set data-offset attribute for the transition to use
-                // (Note: The original code didn't actually *use* data-offset for animation,
-                // but setting it is good practice if you intend to.)
-                // circle.setAttribute('data-offset', offset);
 
                 // Add delay for staggered animation
                 const delay = Array.from(skillCircles).indexOf(circle) * 200;
@@ -1337,264 +1332,379 @@
         }
 
 
-        // Intersection Observer for skill animation
-        const skillsSection = document.getElementById('skills');
-        if (skillsSection) { // Check if element exists
-             const skillObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateSkills();
-                        skillObserver.unobserve(entry.target); // Stop observing once animated
-                    }
-                });
-            }, { threshold: 0.3 }); // Trigger when 30% of the section is visible
+       // Intersection Observer for skill animation
+       const skillsSection = document.getElementById('skills');
+       if (skillsSection) { // Check if element exists
+           const skillObserver = new IntersectionObserver((entries) => {
+               entries.forEach(entry => {
+                   if (entry.isIntersecting) {
+                       animateSkills();
+                       skillObserver.unobserve(entry.target); // Stop observing once animated
+                   }
+               });
+           }, { threshold: 0.3 }); // Trigger when 30% of the section is visible
 
-            skillObserver.observe(skillsSection);
-        } else {
-            console.error("Skills section not found");
-        }
+           skillObserver.observe(skillsSection);
+       } else {
+           console.error("Skills section not found");
+       }
 
+       // =======================================================
+       // == SANITY.IO JAVASCRIPT CODE BLOCK STARTS HERE ==
+       // =======================================================
+       // --- START: FETCH PROJECTS FROM HEADLESS CMS ---
 
-        // --- START: FORMSPREE JAVASCRIPT ---
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Stop the default page reload
+       // Function to fetch projects and display them
+       async function loadProjects() {
+           const projectsScrollContainer = document.querySelector('#projects .projects-scroll');
+           if (!projectsScrollContainer) {
+               console.error('Project container not found!');
+               return;
+           }
 
-                const form = e.target;
-                const formData = new FormData(form);
-                const submitBtn = form.querySelector('.form-submit');
-                const originalText = submitBtn.textContent;
+           // --- *** YOU MUST EDIT THIS PART *** ---
+           const projectId = '5knm77sp'; // Your Project ID
+           const dataset = 'production'; // Your Dataset
+           const query = encodeURIComponent('*[_type == "project"]'); // Encoded query
+           const cmsApiUrl = `https://${projectId}.api.sanity.io/v1/data/query/${dataset}?query=${query}`; // Construct the URL
 
-                // Basic validation
-                if (!formData.get('name') || !formData.get('email') || !formData.get('phone') || !formData.get('service') || !formData.get('project-details')) {
-                    alert('Please fill in all required fields.');
+           const headers = {
+                'Content-Type': 'application/json',
+                // *** PASTE YOUR TOKEN HERE ***
+                 'Authorization': 'Bearer skDGgBQmIipPnfUMMEeVdnHi5QxjUWnT5i13lW2QhR7wmO1hn0UHbzYbXiqAlTMJAfEKZ9vNitp1m6eApTW3IYaCoeEdmkT8Xz8D4Vcq6oefcieFHQ7xupxUaEeILOcduYO21qKZnwqh7QVx1HnbY1DNJWFUVeybf7JuKDIk58x8r9rd6lzH' // <-- Replace with your real token
+           };
+           // --- *** END EDIT PART *** ---
+
+           try {
+               const response = await fetch(cmsApiUrl, { headers: headers });
+               if (!response.ok) {
+                    // Provide more specific error info
+                    const errorData = await response.text(); // Read response body as text
+                    console.error('API Response Error Body:', errorData);
+                    throw new Error(`HTTP error! status: ${response.status}`);
+               }
+               // Sanity often returns data inside a 'result' property
+               const data = await response.json();
+               const projects = data.result || []; // Use data.result for Sanity GROQ queries
+
+                projectsScrollContainer.innerHTML = ''; // Clear "Loading..." message
+
+               if (!projects || projects.length === 0) {
+                    projectsScrollContainer.innerHTML = '<p style="text-align: center; width: 100%;">No projects found in CMS.</p>';
                     return;
-                }
+               }
 
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
+               projects.forEach(project => {
+                   const card = document.createElement('div');
+                   card.classList.add('project-card');
 
-                fetch(form.action, { // Uses the action URL from your HTML form tag
-                    method: form.method, // Uses the method from your HTML form tag (POST)
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json' // Formspree requires this header
-                    }
-                }).then(response => {
-                    if (response.ok) {
-                        // Success! Formspree received the data.
-                        submitBtn.textContent = 'Message Sent!';
-                        submitBtn.style.background = 'linear-gradient(90deg, #28a745, #20c997)';
-                        setTimeout(() => {
-                            form.reset(); // Clear the form fields
-                            submitBtn.textContent = originalText;
-                            submitBtn.style.background = 'linear-gradient(90deg, #F96802, #E70424)';
-                            submitBtn.disabled = false;
-                        }, 3000); // Wait a bit longer so user sees the success message
-                    } else {
-                        // Server returned an error (e.g., validation error on Formspree side)
-                        response.json().then(data => {
-                            if (Object.hasOwn(data, 'errors')) {
-                                alert(data["errors"].map(error => error["message"]).join(", "));
-                            } else {
-                                alert('Oops! There was a problem submitting your form. Please try again.');
-                            }
+                   // Check your Sanity field names!
+                   const title = project.title || 'Untitled Project';
+                   const description = project.description || '';
+                   let imageUrl = null;
+                   if (project.imageUrl && project.imageUrl.asset && project.imageUrl.asset._ref) {
+                      const ref = project.imageUrl.asset._ref;
+                      const parts = ref.split('-');
+                      if (parts.length >= 3) { // Basic check for expected format
+                         const imageId = parts[1];
+                         const format = parts[parts.length - 1];
+                         imageUrl = `https://cdn.sanity.io/images/${projectId}/${dataset}/${imageId}.${format}?w=400&auto=format`;
+                      } else {
+                         console.warn("Unexpected image asset ref format:", ref);
+                      }
+                   }
+
+                   const tags = project.tags || [];
+
+                   const imageDiv = document.createElement('div');
+                   imageDiv.classList.add('project-image');
+                   if (imageUrl) {
+                       const img = document.createElement('img');
+                       img.src = imageUrl;
+                       img.alt = title;
+                       // Add loading attribute for better performance
+                       img.loading = 'lazy';
+                       imageDiv.appendChild(img);
+                   } else {
+                       imageDiv.textContent = '📁'; // Default if no image
+                   }
+
+                   const contentDiv = document.createElement('div');
+                   contentDiv.classList.add('project-content');
+
+                   const heading = document.createElement('h3');
+                   heading.textContent = title;
+
+                   const descriptionP = document.createElement('p');
+                   descriptionP.textContent = description;
+
+                   const tagsDiv = document.createElement('div');
+                   tagsDiv.classList.add('project-tags');
+
+                   tags.forEach(tagText => {
+                       const tagSpan = document.createElement('span');
+                       tagSpan.classList.add('tag');
+                       tagSpan.textContent = tagText;
+                       tagsDiv.appendChild(tagSpan);
+                   });
+
+                   contentDiv.appendChild(heading);
+                   if (description) {
+                       contentDiv.appendChild(descriptionP);
+                   }
+                   contentDiv.appendChild(tagsDiv);
+
+                   card.appendChild(imageDiv);
+                   card.appendChild(contentDiv);
+
+                   projectsScrollContainer.appendChild(card);
+               });
+
+           } catch (error) {
+               console.error('Error fetching projects:', error);
+               projectsScrollContainer.innerHTML = '<p style="text-align: center; width: 100%; color: red;">Could not load projects. Check console for details.</p>';
+           }
+       }
+
+       // Run the function after the page structure is loaded
+       document.addEventListener('DOMContentLoaded', loadProjects);
+
+       // --- END: FETCH PROJECTS FROM HEADLESS CMS ---
+       // =======================================================
+
+
+       // --- START: FORMSPREE JAVASCRIPT ---
+       const contactForm = document.getElementById('contactForm');
+       if (contactForm) {
+           contactForm.addEventListener('submit', function(e) {
+               e.preventDefault(); // Stop the default page reload
+
+               const form = e.target;
+               const formData = new FormData(form);
+               const submitBtn = form.querySelector('.form-submit');
+               const originalText = submitBtn.textContent;
+
+               // Basic validation
+               if (!formData.get('name') || !formData.get('email') || !formData.get('phone') || !formData.get('service') || !formData.get('project-details')) {
+                   alert('Please fill in all required fields.');
+                   return;
+               }
+
+               submitBtn.textContent = 'Sending...';
+               submitBtn.disabled = true;
+
+               fetch(form.action, { // Uses the action URL from your HTML form tag
+                   method: form.method, // Uses the method from your HTML form tag (POST)
+                   body: formData,
+                   headers: {
+                       'Accept': 'application/json' // Formspree requires this header
+                   }
+               }).then(response => {
+                   if (response.ok) {
+                       // Success! Formspree received the data.
+                       submitBtn.textContent = 'Message Sent!';
+                       submitBtn.style.background = 'linear-gradient(90deg, #28a745, #20c997)';
+                       setTimeout(() => {
+                           form.reset(); // Clear the form fields
+                           submitBtn.textContent = originalText;
+                           submitBtn.style.background = 'linear-gradient(90deg, #F96802, #E70424)';
+                           submitBtn.disabled = false;
+                       }, 3000); // Wait a bit longer so user sees the success message
+                   } else {
+                       // Server returned an error (e.g., validation error on Formspree side)
+                       response.json().then(data => {
+                           if (Object.hasOwn(data, 'errors')) {
+                               alert(data["errors"].map(error => error["message"]).join(", "));
+                           } else {
+                               alert('Oops! There was a problem submitting your form. Please try again.');
+                           }
+                           // Reset button on error
+                           submitBtn.textContent = originalText;
+                           submitBtn.style.background = 'linear-gradient(90deg, #F96802, #E70424)';
+                           submitBtn.disabled = false;
+                       }).catch(error => {
+                           // Problem parsing error JSON
+                           alert('Oops! There was a problem submitting your form. Please try again.');
+                           console.error('JSON parsing error:', error);
                             // Reset button on error
-                            submitBtn.textContent = originalText;
-                            submitBtn.style.background = 'linear-gradient(90deg, #F96802, #E70424)';
-                            submitBtn.disabled = false;
-                        }).catch(error => {
-                            // Problem parsing error JSON
-                            alert('Oops! There was a problem submitting your form. Please try again.');
-                            console.error('JSON parsing error:', error);
-                             // Reset button on error
-                            submitBtn.textContent = originalText;
-                            submitBtn.style.background = 'linear-gradient(90deg, #F96802, #E70424)';
-                            submitBtn.disabled = false;
-                        });
-                    }
-                }).catch(error => {
-                    // Network error (couldn't reach Formspree)
-                    alert('Oops! Could not connect to send the message. Please check your internet connection and try again.');
-                    console.error('Fetch network error:', error);
-                    // Reset button on error
-                    submitBtn.textContent = originalText;
-                    submitBtn.style.background = 'linear-gradient(90deg, #F96802, #E70424)';
-                    submitBtn.disabled = false;
-                });
-            });
-        } else {
-            console.error("Contact form not found");
-        }
-        // --- END: FORMSPREE JAVASCRIPT ---
+                           submitBtn.textContent = originalText;
+                           submitBtn.style.background = 'linear-gradient(90deg, #F96802, #E70424)';
+                           submitBtn.disabled = false;
+                       });
+                   }
+               }).catch(error => {
+                   // Network error (couldn't reach Formspree)
+                   alert('Oops! Could not connect to send the message. Please check your internet connection and try again.');
+                   console.error('Fetch network error:', error);
+                   // Reset button on error
+                   submitBtn.textContent = originalText;
+                   submitBtn.style.background = 'linear-gradient(90deg, #F96802, #E70424)';
+                   submitBtn.disabled = false;
+               });
+           });
+       } else {
+           console.error("Contact form not found");
+       }
+       // --- END: FORMSPREE JAVASCRIPT ---
 
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const navMenu = document.querySelector('.nav-menu');
-            const mobileMenu = document.querySelector('.mobile-menu');
+       // Mobile menu toggle
+       function toggleMobileMenu() {
+           const navMenu = document.querySelector('.nav-menu');
+           const mobileMenu = document.querySelector('.mobile-menu');
 
-            // Check if navMenu exists before toggling class
-            if (navMenu) {
-                navMenu.classList.toggle('nav-menu-active');
-            } else {
-                console.error("Navigation menu element not found");
-            }
-             // Check if mobileMenu exists before toggling class
-            if (mobileMenu) {
-                 mobileMenu.classList.toggle('mobile-menu-active');
-            } else {
-                 console.error("Mobile menu element not found");
-            }
-        }
+           if (navMenu) {
+               navMenu.classList.toggle('nav-menu-active');
+           } else {
+               console.error("Navigation menu element not found");
+           }
+           if (mobileMenu) {
+                mobileMenu.classList.toggle('mobile-menu-active');
+           } else {
+                console.error("Mobile menu element not found");
+           }
+       }
 
 
-        // Add mobile menu styles dynamically
-        const mobileMenuStyles = `
-            @media (max-width: 768px) {
-                .nav-menu.nav-menu-active {
-                    display: flex;
-                    position: fixed;
-                    top: 70px; /* Adjust based on navbar height */
-                    left: 0;
-                    width: 100%;
-                    height: calc(100vh - 70px); /* Adjust based on navbar height */
-                    background: rgba(18, 18, 18, 0.98);
-                    flex-direction: column;
-                    justify-content: flex-start; /* Align items to the top */
-                    align-items: center;
-                    padding-top: 2rem;
-                    gap: 1.5rem;
-                    z-index: 999;
-                    backdrop-filter: blur(10px);
-                    transform: translateX(0); /* Slide in from right (example) */
-                    transition: transform 0.3s ease-in-out;
-                }
+       // Add mobile menu styles dynamically
+       const mobileMenuStyles = `
+           @media (max-width: 768px) {
+               .nav-menu.nav-menu-active {
+                   display: flex;
+                   position: fixed;
+                   top: 70px; /* Adjust based on navbar height */
+                   left: 0;
+                   width: 100%;
+                   height: calc(100vh - 70px); /* Adjust based on navbar height */
+                   background: rgba(18, 18, 18, 0.98);
+                   flex-direction: column;
+                   justify-content: flex-start; /* Align items to the top */
+                   align-items: center;
+                   padding-top: 2rem;
+                   gap: 1.5rem;
+                   z-index: 999;
+                   backdrop-filter: blur(10px);
+                   transform: translateX(0);
+                   transition: transform 0.3s ease-in-out;
+               }
 
-                 /* Style for when menu is inactive (optional, depends on desired effect) */
-                 .nav-menu {
-                    /* Start off-screen if using slide effect */
+               .nav-menu {
+                    /* Initial state if needed, e.g., hidden */
+                    /* display: none; */
                     /* transform: translateX(100%); */
-                    /* transition: transform 0.3s ease-in-out; */
-                 }
+               }
 
 
-                .mobile-menu.mobile-menu-active span:nth-child(1) {
-                    transform: rotate(-45deg) translate(-5px, 6px);
-                }
+               .mobile-menu.mobile-menu-active span:nth-child(1) {
+                   transform: rotate(-45deg) translate(-5px, 6px);
+               }
 
-                .mobile-menu.mobile-menu-active span:nth-child(2) {
-                    opacity: 0;
-                }
+               .mobile-menu.mobile-menu-active span:nth-child(2) {
+                   opacity: 0;
+               }
 
-                .mobile-menu.mobile-menu-active span:nth-child(3) {
-                    transform: rotate(45deg) translate(-5px, -6px);
-                }
-            }
-        `;
+               .mobile-menu.mobile-menu-active span:nth-child(3) {
+                   transform: rotate(45deg) translate(-5px, -6px);
+               }
+           }
+       `;
 
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = mobileMenuStyles;
-        document.head.appendChild(styleSheet);
-
-
-        // Add loading animation to page
-        window.addEventListener('load', function() {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-        });
-
-        // Add parallax effect to hero section
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-             // Ensure hero element exists before trying to style it
-            if (hero) {
-                const rate = scrolled * -0.2; // Adjust rate for desired effect
-                if (scrolled < window.innerHeight) { // Only apply effect when hero is somewhat visible
-                    hero.style.transform = `translateY(${rate}px)`;
-                }
-            }
-        });
+       const styleSheet = document.createElement('style');
+       styleSheet.textContent = mobileMenuStyles;
+       document.head.appendChild(styleSheet);
 
 
-        // Animate elements on scroll
-        const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.section'); // Select all sections
+       // Add loading animation to page
+       window.addEventListener('load', function() {
+           document.body.style.opacity = '0';
+           document.body.style.transition = 'opacity 0.5s ease';
 
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150; // Pixels from bottom edge
+           setTimeout(() => {
+               document.body.style.opacity = '1';
+           }, 100);
+       });
 
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                } else {
-                     // Optionally reset if element scrolls out of view upwards
-                     // element.style.opacity = '0';
-                     // element.style.transform = 'translateY(30px)';
-                }
-            });
-        };
-
-        // Initial setup for scroll animations
-        document.querySelectorAll('.section').forEach(section => {
-             // Don't hide the hero section initially
-             if (section.id !== 'home') {
-                 section.style.opacity = '0';
-                 section.style.transform = 'translateY(30px)';
-             } else {
-                 section.style.opacity = '1'; // Ensure hero is visible on load
-                 section.style.transform = 'translateY(0)';
-             }
-            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        });
-
-        window.addEventListener('scroll', animateOnScroll);
-        animateOnScroll(); // Run once on page load to catch elements already in view
+       // Add parallax effect to hero section
+       window.addEventListener('scroll', function() {
+           const scrolled = window.pageYOffset;
+           const hero = document.querySelector('.hero');
+           if (hero) {
+               const rate = scrolled * -0.2;
+               if (scrolled < window.innerHeight) {
+                   hero.style.transform = `translateY(${rate}px)`;
+               }
+           }
+       });
 
 
-        // Smooth horizontal scroll for projects
-        const projectsContainer = document.querySelector('.projects-container');
-        if (projectsContainer) {
-            let isDown = false;
-            let startX;
-            let scrollLeft;
+       // Animate elements on scroll
+       const animateOnScroll = () => {
+           const elements = document.querySelectorAll('.section');
 
-            projectsContainer.addEventListener('mousedown', (e) => {
-                isDown = true;
-                projectsContainer.style.cursor = 'grabbing'; // Change cursor immediately
-                startX = e.pageX - projectsContainer.offsetLeft;
-                scrollLeft = projectsContainer.scrollLeft;
-            });
+           elements.forEach(element => {
+               const elementTop = element.getBoundingClientRect().top;
+               const elementVisible = 150;
 
-            projectsContainer.addEventListener('mouseleave', () => {
-                if (!isDown) return; // Only reset if mouse was down
-                isDown = false;
-                projectsContainer.style.cursor = 'grab';
-            });
+               if (elementTop < window.innerHeight - elementVisible) {
+                   element.style.opacity = '1';
+                   element.style.transform = 'translateY(0)';
+               }
+           });
+       };
 
-            projectsContainer.addEventListener('mouseup', () => {
-                 if (!isDown) return; // Only reset if mouse was down
-                isDown = false;
-                projectsContainer.style.cursor = 'grab';
-            });
+       // Initial setup for scroll animations
+       document.querySelectorAll('.section').forEach(section => {
+           if (section.id !== 'home') {
+               section.style.opacity = '0';
+               section.style.transform = 'translateY(30px)';
+           } else {
+               section.style.opacity = '1';
+               section.style.transform = 'translateY(0)';
+           }
+           section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+       });
 
-            projectsContainer.addEventListener('mousemove', (e) => {
+       window.addEventListener('scroll', animateOnScroll);
+       // Run once on page load AFTER DOMContentLoaded ensures sections exist
+       document.addEventListener('DOMContentLoaded', animateOnScroll);
+
+
+       // Smooth horizontal scroll for projects
+       const projectsContainer = document.querySelector('.projects-container');
+       if (projectsContainer) {
+           let isDown = false;
+           let startX;
+           let scrollLeft;
+
+           projectsContainer.addEventListener('mousedown', (e) => {
+               isDown = true;
+               projectsContainer.style.cursor = 'grabbing';
+               startX = e.pageX - projectsContainer.offsetLeft;
+               scrollLeft = projectsContainer.scrollLeft;
+           });
+
+           projectsContainer.addEventListener('mouseleave', () => {
+               if (!isDown) return;
+               isDown = false;
+               projectsContainer.style.cursor = 'grab';
+           });
+
+           projectsContainer.addEventListener('mouseup', () => {
                 if (!isDown) return;
-                e.preventDefault(); // Prevent text selection, etc. during drag
-                const x = e.pageX - projectsContainer.offsetLeft;
-                const walk = (x - startX) * 2; // Adjust multiplier for scroll speed
-                projectsContainer.scrollLeft = scrollLeft - walk;
-            });
-        } else {
-            console.error("Projects container not found for scroll functionality.");
-        }
+               isDown = false;
+               projectsContainer.style.cursor = 'grab';
+           });
 
-    </script>
+           projectsContainer.addEventListener('mousemove', (e) => {
+               if (!isDown) return;
+               e.preventDefault();
+               const x = e.pageX - projectsContainer.offsetLeft;
+               const walk = (x - startX) * 2;
+               projectsContainer.scrollLeft = scrollLeft - walk;
+           });
+       } else {
+           console.error("Projects container not found for scroll functionality.");
+       }
+
+   </script>
 </body>
 </html>
